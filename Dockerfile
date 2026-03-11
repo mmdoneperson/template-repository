@@ -8,8 +8,6 @@ USER root
 
 COPY pyproject.toml uv.lock ./
 
-RUN pip3 install uv && uv sync --locked
+RUN pip3 install uv && uv sync --locked --no-install-project
 
 COPY . .
-
-RUN uv sync --locked
