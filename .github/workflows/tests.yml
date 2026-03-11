@@ -13,8 +13,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build image
+      - name: build image
         run: docker build -t app .
 
-      - name: Run tests
+      - name: lint
+        run: |
+          docker run --rm app uv run ruff check .
+          docker run --rm app uv run black --check .
+          docker run --rm app uv run mypy .
+
+      - name: tests
         run: docker run --rm app uv run pytest
